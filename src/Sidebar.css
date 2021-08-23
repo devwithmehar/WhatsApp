@@ -56,3 +56,9 @@
     background-color: white;
     overflow: scroll;
 }
+.addChat{
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+
+}
