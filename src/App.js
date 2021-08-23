@@ -27,7 +27,7 @@ function App() {
   },[])
 
   useEffect ( () =>{
-    const pusher = new Pusher(process.env.React_App_pusher_key, {
+    const pusher = new Pusher('41c9e88bf10b7ebf8f0a', {
       cluster: 'mt1'
     });
 
