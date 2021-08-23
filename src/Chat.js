@@ -7,7 +7,7 @@ import MicIcon from '@material-ui/icons/Mic';
 import axios from './axios';
 import { Link , useParams } from 'react-router-dom'
 import db from './firebase';
-
+import { useStateValue } from './StateProvider';
 
 
 
@@ -17,6 +17,7 @@ const [input, setInput] = useState('');
 const [seed, setSeed] = useState("");
 const {roomId} = useParams();
 const [roomName, setRoomName] = useState("");
+const [{ user }, dispatch] = useStateValue();
 
 useEffect( () =>{
         if(roomId) {
@@ -31,7 +32,8 @@ useEffect( () =>{
     setSeed(Math.floor(Math.random() *5000));
 },[roomId])
 
-
+var today = new Date();
+var time = today.getHours() + ":" + today.getMinutes() ;
 
 const sendMessage = (e) =>{
 
@@ -39,8 +41,8 @@ const sendMessage = (e) =>{
 
     axios.post('/messages/new',{
         message: input,
-        name: roomName,
-        timestamp:'Just Now',
+        name: user.displayName,
+        timestamp:time,
         recieved:false,
     });
 
@@ -56,7 +58,7 @@ const sendMessage = (e) =>{
 
                 <div className='chat_headerInfo'>
                     <h3>{roomName}</h3>
-                    <p>Last seen at..</p>
+                    <p>Last seen at {time}</p>
                 </div>
 
                 <div className='chat_headerRight'>

@@ -5,11 +5,16 @@ import './App.css';
 import Sidebar from './Sidebar';
 import {BrowserRouter as Router, Switch ,Route} from 'react-router-dom';
 import Chat from './Chat';
+import Login from './Login';
+import { useStateValue } from './StateProvider';
 import dotenv from 'dotenv'
 dotenv.config()
 
 
 function App() {
+  const [{ user }, dispatch] = useStateValue();
+
+  
 
   const [messages, setMessages] = useState([]);
 
@@ -42,9 +47,15 @@ function App() {
  
   return (
     <div className="app">
+
+      {!user ? (
+        <Login />
+      ) : (
+
+      
      <div className='app_body'>
        <Router>
-       <Sidebar />
+       <Sidebar messages={messages}  />
          <Switch>
          
         <Route path='/rooms/:roomId'>
@@ -70,6 +81,7 @@ function App() {
        </Router>
 
        </div>
+       )} 
     </div>
   );
 }

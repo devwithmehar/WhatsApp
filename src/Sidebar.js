@@ -7,10 +7,12 @@ import ChatIcon   from '@material-ui/icons/Chat';
 import {SearchOutlined, Unsubscribe } from '@material-ui/icons'
 import SidebarChat from './SidebarChat';
 import db from './firebase';
+import { useStateValue } from './StateProvider';
 
 
-const Sidebar = () => {
+const Sidebar = ( {messages} ) => {
 const [rooms, setRooms] = useState([]);
+const [{ user }, dispatch] = useStateValue();
 
 
 const createChat = () =>{
@@ -41,7 +43,9 @@ useEffect ( () =>{
         <div className='sidebar'>
               <div className='sidebar_header'>
 
-                  <Avatar />
+                  <Avatar 
+                  src={user?.photoURL}
+                  />
 
                     <div className='sidebar_headerRight'>
                         <IconButton>
@@ -88,7 +92,7 @@ useEffect ( () =>{
                             <SidebarChat key={room.id} 
                             id={room.id}
                             name={room.data.name}
-                           
+                            messages={messages}
                             />
                         ))
                     }

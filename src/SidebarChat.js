@@ -5,13 +5,15 @@ import { Link} from 'react-router-dom';
 
 
 
-const SidebarChat = ( {id , name , addNewChat } ) => {
+const SidebarChat = ( {id , name , addNewChat , messages } ) => {
     const [seed, setSeed] = useState("");
 
     useEffect( () =>{
         setSeed(Math.floor(Math.random() *5000));
     },[])
     
+    const lastMessage  = messages[messages.length - 1].message
+
     
 
 
@@ -24,7 +26,7 @@ const SidebarChat = ( {id , name , addNewChat } ) => {
 
             <div className='sidebarChat_info'>
                     <h2>{name}</h2>
-                    <p>This is the last message</p>
+                    <p> The last message... </p>
             </div>
         </div> 
     </Link>
